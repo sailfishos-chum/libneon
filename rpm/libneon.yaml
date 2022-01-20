@@ -5,6 +5,7 @@ Release: 0
 Group: Applications/Internet
 License: GPLv2
 URL: 'https://notroj.github.io/neon'
+SCM: 'https://github.com/notroj/neon'
 Sources:
   - 'https://notroj.github.io/neon/neon-%{version}.tar.gz'
 Description: |
@@ -20,7 +21,8 @@ Description: |
 
     %if "%{?vendor}" == "chum"
     PackageName: Neon
-    PackagerName: nephros
+    Custom:
+      PackagingRepo: https://github.com/sailfishos-chum/libneon
     Categories:
      - Network
      - Library
@@ -38,7 +40,7 @@ PkgConfigBR:
     - openssl
     - libxml-2.0
     - libproxy-1.0
-SetupOptions: -q -n neon-%{version}
+SetupOptions: -q -n neon-%{version}/upstream
 ConfigOptions:
     - '--disable-nls'
     - '--enable-shared'

@@ -36,7 +36,8 @@ Features:
 
 %if "%{?vendor}" == "chum"
 PackageName: Neon
-PackagerName: nephros
+Custom:
+  PackagingRepo: https://github.com/sailfishos-chum/libneon
 Categories:
  - Network
  - Library
@@ -52,7 +53,7 @@ Requires:   %{name} = %{version}-%{release}
 Development files for %{name}.
 
 %prep
-%setup -q -n neon-%{version}
+%setup -q -n neon-%{version}/upstream
 
 # >> setup
 # Fix compatibility with OpenSSL >=1.1.
