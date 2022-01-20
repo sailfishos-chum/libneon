@@ -14,7 +14,7 @@ Release:    0
 Group:      Applications/Internet
 License:    GPLv2
 URL:        https://notroj.github.io/neon
-Source0:    https://notroj.github.io/neon/neon-%{version}.tar.gz
+Source0:    https://notroj.github.io/neon/%{name}-%{version}.tar.gz
 Source100:  libneon.yaml
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
@@ -30,12 +30,21 @@ BuildRequires:  automake
 neon is an HTTP/1.1 and WebDAV client library, with a C interface.
 
 Features:
-    - High-level wrappers for common HTTP and WebDAV operations (GET, MOVE, DELETE, etc) Low-level interface to the HTTP request/response engine, allowing the use of arbitrary HTTP methods, headers, etc.
-    - Authentication support including Basic and Digest support, along with GSSAPI-based Negotiate on Unix, and SSPI-based Negotiate/NTLM on Win32
-    - SSL/TLS support using OpenSSL or GnuTLS; exposing an abstraction layer for verifying server certificates, handling client certificates, and examining certificate properties.
-    - Smartcard-based client certificates are also supported via a PKCS#11 wrapper interface
-    - Abstract interface to parsing XML using libxml2 or expat, and wrappers for simplifying handling XML HTTP response bodies
-    - WebDAV metadata support; wrappers for PROPFIND and PROPPATCH to simplify property manipulation
+  - High-level wrappers for common HTTP and WebDAV operations (GET, MOVE,
+    DELETE, etc) Low-level interface to the HTTP request/response engine,
+    allowing the use of arbitrary HTTP methods, headers, etc.
+  - Authentication support including Basic and Digest support, along with
+    GSSAPI-based Negotiate on Unix, and SSPI-based Negotiate/NTLM on
+    Win32
+  - SSL/TLS support using OpenSSL or GnuTLS; exposing an abstraction
+    layer for verifying server certificates, handling client
+    certificates, and examining certificate properties.
+  - Smartcard-based client certificates are also supported via a PKCS#11
+    wrapper interface
+  - Abstract interface to parsing XML using libxml2 or expat, and
+    wrappers for simplifying handling XML HTTP response bodies
+  - WebDAV metadata support; wrappers for PROPFIND and PROPPATCH to
+    simplify property manipulation
 
 %if "%{?vendor}" == "chum"
 PackageName: Neon
@@ -56,7 +65,7 @@ Requires:   %{name} = %{version}-%{release}
 Development files for %{name}.
 
 %prep
-%setup -q -n neon-%{version}/upstream
+%setup -q -n %{name}-%{version}/upstream
 
 # >> setup
 # Fix compatibility with OpenSSL >=1.1.
@@ -91,6 +100,8 @@ rm -rf %{buildroot}
 # >> install post
 # default make install contains -docs which needs xmlto which fails to run correctly in OBS build environment
 %{__make} DESTDIR=%{?buildroot} INSTALL="%{__install} -p" install-lib install-headers install-config
+# fix double slash in pkgconfig file (thanks, rpmlint!):
+sed -i 's@-L//usr/lib@-L/usr/lib@g' %{buildroot}%{_libdir}/pkgconfig/neon.pc
 # << install post
 
 %post -p /sbin/ldconfig
