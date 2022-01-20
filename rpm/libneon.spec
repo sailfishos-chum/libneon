@@ -22,6 +22,9 @@ BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(libproxy-1.0)
+BuildRequires:  libtool
+BuildRequires:  autoconf
+BuildRequires:  automake
 
 %description
 neon is an HTTP/1.1 and WebDAV client library, with a C interface.
@@ -53,7 +56,7 @@ Requires:   %{name} = %{version}-%{release}
 Development files for %{name}.
 
 %prep
-%setup -q -n neon-%{version}/upstream
+%setup -q -n %{name}-%{version}/upstream
 
 # >> setup
 # Fix compatibility with OpenSSL >=1.1.
@@ -62,6 +65,7 @@ sed -e "s/RSA_F_RSA_PRIVATE_ENCRYPT/RSA_F_RSA_OSSL_PRIVATE_ENCRYPT/" -i src/ne_p
 
 %build
 # >> build pre
+./autogen.sh
 # << build pre
 
 %configure --disable-static \

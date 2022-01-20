@@ -31,8 +31,10 @@ Description: |
 
 #Patches:
 #  - 'libneon-xmlto.patch'
-
-#PkgBR:
+PkgBR:
+     - libtool
+     - autoconf
+     - automake
 #    # needed for -docs but doesn't work in this version on OBS
 #    - xmlto
 PkgConfigBR:
@@ -40,7 +42,7 @@ PkgConfigBR:
     - openssl
     - libxml-2.0
     - libproxy-1.0
-SetupOptions: -q -n neon-%{version}/upstream
+SetupOptions: -q -n %{name}-%{version}/upstream
 ConfigOptions:
     - '--disable-nls'
     - '--enable-shared'
