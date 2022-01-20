@@ -1,0 +1,66 @@
+Name: libneon
+Summary: HTTP and WebDAV client library
+Version: 0.32.1
+Release: 0
+Group: Applications/Internet
+License: GPLv2
+URL: 'https://notroj.github.io/neon'
+Sources:
+  - 'https://notroj.github.io/neon/neon-%{version}.tar.gz'
+Description: |
+    neon is an HTTP/1.1 and WebDAV client library, with a C interface.
+
+    Features:
+        - High-level wrappers for common HTTP and WebDAV operations (GET, MOVE, DELETE, etc) Low-level interface to the HTTP request/response engine, allowing the use of arbitrary HTTP methods, headers, etc.
+        - Authentication support including Basic and Digest support, along with GSSAPI-based Negotiate on Unix, and SSPI-based Negotiate/NTLM on Win32
+        - SSL/TLS support using OpenSSL or GnuTLS; exposing an abstraction layer for verifying server certificates, handling client certificates, and examining certificate properties.
+        - Smartcard-based client certificates are also supported via a PKCS#11 wrapper interface
+        - Abstract interface to parsing XML using libxml2 or expat, and wrappers for simplifying handling XML HTTP response bodies
+        - WebDAV metadata support; wrappers for PROPFIND and PROPPATCH to simplify property manipulation
+
+    %if "%{?vendor}" == "chum"
+    PackageName: Neon
+    PackagerName: nephros
+    Categories:
+     - Network
+     - Library
+    %endif
+
+
+#Patches:
+#  - 'libneon-xmlto.patch'
+
+#PkgBR:
+#    # needed for -docs but doesn't work in this version on OBS
+#    - xmlto
+PkgConfigBR:
+    - zlib
+    - openssl
+    - libxml-2.0
+    - libproxy-1.0
+SetupOptions: -q -n neon-%{version}
+ConfigOptions:
+    - '--disable-nls'
+    - '--enable-shared'
+    - '--enable-threadsafe-ssl=posix'
+    - '--with-ssl=openssl'
+    - '--with-libproxy'
+    - '--with-libxml2'
+    - '--with-zlib'
+# it is make but we want to do it custom so we don't need docs
+Builder: none
+Files:
+  - '%{_libdir}/*.so.*'
+
+AutoSubPackages:
+  - devel
+#SubPackages:
+#    - Name:  doc
+#      Summary: Documentation for %{name}
+#      Group: Documentation
+#      BuildArch: noarch
+#      AutoDepend: false
+#      Files:
+#        - '%{_mandir}/*/*'
+#        - '%{_docdir}/*'
+
