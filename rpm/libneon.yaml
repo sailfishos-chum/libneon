@@ -42,7 +42,7 @@ PkgConfigBR:
     - openssl
     - libxml-2.0
     - libproxy-1.0
-SetupOptions: -q -n %{name}-%{version}/upstream
+SetupOptions: -q -n neon-%{version}/upstream
 ConfigOptions:
     - '--disable-nls'
     - '--enable-shared'

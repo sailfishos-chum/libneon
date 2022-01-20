@@ -56,7 +56,7 @@ Requires:   %{name} = %{version}-%{release}
 Development files for %{name}.
 
 %prep
-%setup -q -n %{name}-%{version}/upstream
+%setup -q -n neon-%{version}/upstream
 
 # >> setup
 # Fix compatibility with OpenSSL >=1.1.
