@@ -30,29 +30,39 @@ BuildRequires:  automake
 neon is an HTTP/1.1 and WebDAV client library, with a C interface.
 
 Features:
-  - High-level wrappers for common HTTP and WebDAV operations (GET, MOVE,
+    High-level wrappers for common HTTP and WebDAV operations (GET, MOVE,
     DELETE, etc) Low-level interface to the HTTP request/response engine,
     allowing the use of arbitrary HTTP methods, headers, etc.
-  - Authentication support including Basic and Digest support, along with
+
+    Authentication support including Basic and Digest support, along with
     GSSAPI-based Negotiate on Unix, and SSPI-based Negotiate/NTLM on
     Win32
-  - SSL/TLS support using OpenSSL or GnuTLS; exposing an abstraction
+
+    SSL/TLS support using OpenSSL or GnuTLS; exposing an abstraction
     layer for verifying server certificates, handling client
     certificates, and examining certificate properties.
-  - Smartcard-based client certificates are also supported via a PKCS#11
+
+    Smartcard-based client certificates are also supported via a PKCS#11
     wrapper interface
-  - Abstract interface to parsing XML using libxml2 or expat, and
+
+    Abstract interface to parsing XML using libxml2 or expat, and
     wrappers for simplifying handling XML HTTP response bodies
-  - WebDAV metadata support; wrappers for PROPFIND and PROPPATCH to
+
+    WebDAV metadata support; wrappers for PROPFIND and PROPPATCH to
     simplify property manipulation
 
 %if "%{?vendor}" == "chum"
 PackageName: Neon
 Custom:
   PackagingRepo: https://github.com/sailfishos-chum/libneon
+  Repo: https://github.com/notroj/neon
 Categories:
  - Network
  - Library
+Url:
+  Homepage: %{url}
+  Help: https://github.com/notroj/neon/discussions
+  Bugtracker: https://github.com/notroj/neon/issues
 %endif
 
 
@@ -62,7 +72,22 @@ Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
 
 %description devel
-Development files for %{name}.
+%{summary}.
+
+%if "%{?vendor}" == "chum"
+PackageName: Neon
+Custom:
+  PackagingRepo: https://github.com/sailfishos-chum/libneon
+  Repo: https://github.com/notroj/neon
+Categories:
+ - Network
+ - Library
+Url:
+  Homepage: %{url}
+  Help: https://github.com/notroj/neon/discussions
+  Bugtracker: https://github.com/notroj/neon/issues
+%endif
+
 
 %prep
 %setup -q -n %{name}-%{version}/upstream
@@ -116,10 +141,11 @@ sed -i 's@-L//usr/lib@-L/usr/lib@g' %{buildroot}%{_libdir}/pkgconfig/neon.pc
 
 %files devel
 %defattr(-,root,root,-)
-# >> files devel
 %{_bindir}/neon-config
-%{_includedir}/neon
+%dir %{_includedir}/neon
+%{_includedir}/neon/*
 %{_libdir}/%{name}.so
 %{_libdir}/%{name}.la
 %{_libdir}/pkgconfig/neon.pc
+# >> files devel
 # << files devel
