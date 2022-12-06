@@ -9,7 +9,7 @@ Name:       libneon
 # << macros
 
 Summary:    HTTP and WebDAV client library
-Version:    0.32.1
+Version:    0.32.4
 Release:    0
 Group:      Applications/Internet
 License:    GPLv2
