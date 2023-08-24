@@ -9,7 +9,7 @@ Name:       libneon
 # << macros
 
 Summary:    HTTP and WebDAV client library
-Version:    0.32.4
+Version:    0.32.5
 Release:    0
 Group:      Applications/Internet
 License:    GPLv2
@@ -29,7 +29,8 @@ BuildRequires:  automake
 %description
 neon is an HTTP/1.1 and WebDAV client library, with a C interface.
 
-Features:
+    Features:
+
     High-level wrappers for common HTTP and WebDAV operations (GET, MOVE,
     DELETE, etc) Low-level interface to the HTTP request/response engine,
     allowing the use of arbitrary HTTP methods, headers, etc.
@@ -51,15 +52,14 @@ Features:
     WebDAV metadata support; wrappers for PROPFIND and PROPPATCH to
     simplify property manipulation
 
-%if "%{?vendor}" == "chum"
-PackageName: Neon
+%if 0%{?_chum}
 Custom:
   PackagingRepo: https://github.com/sailfishos-chum/libneon
   Repo: https://github.com/notroj/neon
 Categories:
  - Network
  - Library
-Url:
+Links:
   Homepage: %{url}
   Help: https://github.com/notroj/neon/discussions
   Bugtracker: https://github.com/notroj/neon/issues
@@ -74,15 +74,14 @@ Requires:   %{name} = %{version}-%{release}
 %description devel
 %{summary}.
 
-%if "%{?vendor}" == "chum"
-PackageName: Neon
+%if 0%{?_chum}
 Custom:
   PackagingRepo: https://github.com/sailfishos-chum/libneon
   Repo: https://github.com/notroj/neon
 Categories:
  - Network
  - Library
-Url:
+Links:
   Homepage: %{url}
   Help: https://github.com/notroj/neon/discussions
   Bugtracker: https://github.com/notroj/neon/issues
